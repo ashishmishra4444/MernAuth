@@ -31,7 +31,7 @@ const Login = () => {
         const data = response.data;
         if (data.success) {
           setIsLoggedIn(true);
-          getUserData();
+          await getUserData();
           navigate("/");
           toast.success(data.message);
         } else {
@@ -45,7 +45,7 @@ const Login = () => {
         const data = response.data;
         if (data.success) {
           setIsLoggedIn(true);
-          getUserData();
+          await getUserData();
           navigate("/");
           toast.success(data.message);
         } else {
