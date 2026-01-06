@@ -70,7 +70,6 @@ const EmailVerify = () => {
     isLoggedIn && userData && userData.isVerified && navigate("/");
   }, [isLoggedIn, userData]);
 
-  
   return (
     <div className="flex items-center justify-center min-h-screen bg-linear-to-br from-blue-200 to-purple-400">
       <img
@@ -108,7 +107,7 @@ const EmailVerify = () => {
             ))}
         </div>
 
-        <button className="w-full py-3 bg-linear-to-r from-indigo-500 to-indigo-900 text-white rounded-full cursor-pointer">
+        <button className="w-full py-3 bg-linear-to-r from-indigo-500 to-indigo-900 text-white rounded-full cursor-pointer tracking-wide shadow-md hover:from-indigo-600 hover:to-indigo-800 hover:shadow-lg hover:scale-95 transition-all duration-500">
           Verify Email
         </button>
       </form>

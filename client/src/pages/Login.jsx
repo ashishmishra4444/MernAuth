@@ -120,8 +120,7 @@ const Login = () => {
           >
             Forgot Password?
           </p>
-
-          <button className="text-white font-medium w-full py-2.5 rounded-full bg-linear-to-r from-indigo-500 to-indigo-900 cursor-pointer">
+          <button className="text-white font-medium w-full py-2.5 rounded-full bg-linear-to-r from-indigo-500 to-indigo-900 cursor-pointer tracking-wide shadow-md hover:from-indigo-600 hover:to-indigo-800 hover:shadow-lg hover:scale-95 transition-all duration-500">
             {state}
           </button>
         </form>
