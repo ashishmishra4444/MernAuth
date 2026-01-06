@@ -10,12 +10,15 @@ const app = express();
 
 const PORT = process.env.PORT || 4000;
 
+const allowedOrigins = process.env.FRONTEND_URL;
+
 connectDB();
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
+    origin: allowedOrigins,
     credentials: true,
   })
 );
