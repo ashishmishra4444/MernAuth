@@ -14,7 +14,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { backendUrl, setIsLoggedIn } = useContext(AppContext);
+  const { backendUrl, setIsLoggedIn, getUserData } = useContext(AppContext);
 
   const onSubmitHandler = async (e) => {
     try {
@@ -31,6 +31,7 @@ const Login = () => {
         const data = response.data;
         if (data.success) {
           setIsLoggedIn(true);
+          getUserData();
           navigate("/");
           toast.success(data.message);
         } else {
@@ -44,6 +45,7 @@ const Login = () => {
         const data = response.data;
         if (data.success) {
           setIsLoggedIn(true);
+          getUserData();
           navigate("/");
           toast.success(data.message);
         } else {

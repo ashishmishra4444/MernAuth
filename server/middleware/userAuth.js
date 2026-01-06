@@ -10,7 +10,8 @@ const userAuth = async (req, res, next) => {
   try {
     const tokenDecoded = jwt.verify(token, process.env.JWT_SECRET);
     if (tokenDecoded) {
-      req.body.userId = tokenDecoded.id;
+      // req.body.userId = tokenDecoded.id;
+      req.userId = tokenDecoded.id;
     }else{
         return res
         .status(401)
