@@ -189,7 +189,7 @@ const ResetPassword = () => {
           </div>
 
           <button className="w-full py-2.5 bg-linear-to-r from-indigo-500 to-indigo-900 text-white rounded-full cursor-pointer mt-3 tracking-wide shadow-md hover:from-indigo-600 hover:to-indigo-800 hover:shadow-lg hover:scale-95 transition-all duration-500">
-            Verify Email
+            Submit
           </button>
         </form>
       )}

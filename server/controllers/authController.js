@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import userModel from "../models/userModel.js";
 import transporter from "../config/nodemailer.js";
+import { EMAIL_VERIFY_TEMPLATE, PASSWORD_RESET_TEMPLATE } from "../config/emailTemplate.js";
 
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -127,7 +128,8 @@ export const sendVerifyOTP = async (req, res) => {
       from: process.env.SENDER_EMAIL,
       to: user.email,
       subject: "Account Verification OTP",
-      text: `Hello ${user.name},\n\nYour OTP for account verification is ${otp}. It is valid for 24 hours. Please use this OTP to verify your account.\n\nBest regards,\nMERN Auth Team`,
+      // text: `Hello ${user.name},\n\nYour OTP for account verification is ${otp}. It is valid for 24 hours. Please use this OTP to verify your account.\n\nBest regards,\nMERN Auth Team`,
+      html: EMAIL_VERIFY_TEMPLATE.replace("{{otp}}",otp).replace("{{email}}",user.email),
     };
     await transporter.sendMail(mailOptions);
 
@@ -216,7 +218,8 @@ export const sendResetOTP = async (req, res) => {
       from: process.env.SENDER_EMAIL,
       to: user.email,
       subject: "Password Reset OTP",
-      text: `Hello ${user.name},\n\nYour OTP for password reset is ${otp}. It is valid for 15 minutes. Please use this OTP to reset your password.\n\nBest regards,\nMERN Auth Team`,
+      // text: `Hello ${user.name},\n\nYour OTP for password reset is ${otp}. It is valid for 15 minutes. Please use this OTP to reset your password.\n\nBest regards,\nMERN Auth Team`,
+      html: PASSWORD_RESET_TEMPLATE.replace("{{otp}}",otp).replace("{{email}}",user.email),
     };
     await transporter.sendMail(mailOptions);
     return res
