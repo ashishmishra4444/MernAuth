@@ -10,7 +10,7 @@ const app = express();
 
 const PORT = process.env.PORT || 4000;
 
-const allowedOrigins = ['http://localhost:5173']
+const allowedOrigins = ['http://localhost:5173','https://mern-auth-iota-ruddy.vercel.app']
 
 connectDB();
 
