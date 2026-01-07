@@ -10,7 +10,7 @@ const app = express();
 
 const PORT = process.env.PORT || 4000;
 
-const allowedOrigins = process.env.FRONTEND_URL;
+const allowedOrigins = ['http://localhost:5173']
 
 connectDB();
 
