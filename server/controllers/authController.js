@@ -2,7 +2,10 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import userModel from "../models/userModel.js";
 import transporter from "../config/nodemailer.js";
-import { EMAIL_VERIFY_TEMPLATE, PASSWORD_RESET_TEMPLATE } from "../config/emailTemplate.js";
+import {
+  EMAIL_VERIFY_TEMPLATE,
+  PASSWORD_RESET_TEMPLATE,
+} from "../config/emailTemplate.js";
 
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -27,8 +30,10 @@ export const register = async (req, res) => {
     });
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      // secure: process.env.NODE_ENV === "production",
+      secure: true,
+      sameSite: "none",
+      // sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
@@ -129,7 +134,10 @@ export const sendVerifyOTP = async (req, res) => {
       to: user.email,
       subject: "Account Verification OTP",
       // text: `Hello ${user.name},\n\nYour OTP for account verification is ${otp}. It is valid for 24 hours. Please use this OTP to verify your account.\n\nBest regards,\nMERN Auth Team`,
-      html: EMAIL_VERIFY_TEMPLATE.replace("{{otp}}",otp).replace("{{email}}",user.email),
+      html: EMAIL_VERIFY_TEMPLATE.replace("{{otp}}", otp).replace(
+        "{{email}}",
+        user.email
+      ),
     };
     await transporter.sendMail(mailOptions);
 
@@ -219,7 +227,10 @@ export const sendResetOTP = async (req, res) => {
       to: user.email,
       subject: "Password Reset OTP",
       // text: `Hello ${user.name},\n\nYour OTP for password reset is ${otp}. It is valid for 15 minutes. Please use this OTP to reset your password.\n\nBest regards,\nMERN Auth Team`,
-      html: PASSWORD_RESET_TEMPLATE.replace("{{otp}}",otp).replace("{{email}}",user.email),
+      html: PASSWORD_RESET_TEMPLATE.replace("{{otp}}", otp).replace(
+        "{{email}}",
+        user.email
+      ),
     };
     await transporter.sendMail(mailOptions);
     return res
@@ -247,11 +258,11 @@ export const resetPassword = async (req, res) => {
       return res.status(400).json({ success: false, message: "Invalid OTP" });
     }
     if (user.resetOTPExpireAt < Date.now()) {
-        return res
-          .status(400)
-          .json({ success: false, message: "OTP has expired" });
+      return res
+        .status(400)
+        .json({ success: false, message: "OTP has expired" });
     }
-    const hashedPassword= await bcrypt.hash(newPassword,10);
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedPassword;
     user.resetOTP = "";
     user.resetOTPExpireAt = 0;
